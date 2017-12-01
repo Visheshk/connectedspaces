@@ -42,7 +42,7 @@ Meteor.subscribe('userPresence');
 
 Template.boxes.helpers({
 	spacesToDisplay: function () {
-		return displaySpaces.find({"roomID": Meteor.userId()});
+		return displaySpaces.find({$and: [{"roomID": Meteor.userId() }, {"location": "space1" }]});
 	},
 
 	spaceName: function () {

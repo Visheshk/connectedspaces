@@ -1,5 +1,5 @@
 <head>
-  <title>the bodgery </title>
+  <title>Connected Spaces </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -8,8 +8,8 @@
 </body>
 
 <template name = "spaceTitle">
-  <h1>the bodgery</h1>
-  <!-- <p>Tap your card at the reader to sign in or register!</p> -->
+  <h1>Connected Spaces &mdash;  {{currentUser.username}}</h1>
+  <p>Tap your card at the reader to sign in or register!</p>
 </template>
 
 <template name = "videoChat">
@@ -63,17 +63,17 @@
 <template name = "home">
   {{> spaceTitle}}
   {{> boxes}}
-  <!-- {{> videoBox}} -->
+  {{> videoBox}}
 </template>
 
 <template name="boxes"> 
-  <!-- {{> noLocation}} -->
+  {{> noLocation}}
   <div class = "row">
   {{#each spacesToDisplay}}
     <div id="div1" class="boxdiv col-md-5">
       <!-- {{> eachBox}} -->
       <div class="panel panel-default">
-        <div class="panel-heading">Maker - Activity  </div>
+        <div class="panel-heading">Maker - Activity  ({{spaceName spaceID = "{{spaceID}}"}})</div>
         <ul class="list-group">
             {{#each allData spaceID = "{{spaceID}}"}}
             
@@ -91,21 +91,6 @@
         {{> eachBox}}
     </div> -->
   {{/each}}
-
-  <div id="formdiv" class="boxdiv col-md-5">
-      <!-- {{> eachBox}} -->
-      <div class="panel panel-default">
-        <div class="panel-heading">Enter username (if this is your first time, pick a username to register!)</div>
-
-        <ul class="list-group">
-          <li class="list-group-item">
-              <a href="#">{{Name}}</a> – <a href="#">{{CurrentActivity}}</a>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
   </div>
 </template>
 
