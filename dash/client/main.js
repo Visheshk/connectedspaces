@@ -139,6 +139,29 @@ Template.activityEntry.helpers({
 	}
 });
 
+Template.memberEnter.events({
+	'submit .usernameForm': function(event) {
+		console.log("username " + event.target.username.value);
+		event.preventDefault();
+		Router.go('/member/' + event.target.username.value);
+		// Meteor.call("logActivity",
+		// 	Session.get("Member"), 
+		// 	Session.get("Name"), 
+		// 	event.target.activity.value, 
+		// 	Meteor.userId(), 
+		// 	Meteor.user().username, 
+		// 	function (err, res){
+		// 	if(err){
+		// 		alert("couldn't log activity! Something wrong with server :(");
+		// 		Router.go('/');
+		// 	}
+		// 	else {
+		// 		Router.go('/');
+		// 	}
+		// });
+	}
+});
+
 Template.activityEntry.events({
 	'submit .activityForm': function(event) {
 		event.preventDefault();
@@ -191,7 +214,10 @@ Template.signUp.events({
 		Meteor.call("createMember", 
 			Session.get("Member"), 
 			event.target.name.value, 
-			event.target.zipcode.value, function (err, res) {
+			event.target.zipcode.value, 
+			event.target.email.value,
+			event.target.phone.value,
+			function (err, res) {
 			if (err) {
 				alert("sign up failed at server end! :(");
 			}

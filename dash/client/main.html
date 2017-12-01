@@ -4,11 +4,11 @@
 </head>
 
 <body>
-  
+  <h1>the bodgery</h1>
 </body>
 
 <template name = "spaceTitle">
-  <h1>the bodgery</h1>
+  <!-- <h1>the bodgery</h1> -->
   <!-- <p>Tap your card at the reader to sign in or register!</p> -->
 </template>
 
@@ -73,7 +73,7 @@
     <div id="div1" class="boxdiv col-md-5">
       <!-- {{> eachBox}} -->
       <div class="panel panel-default">
-        <div class="panel-heading">Maker - Activity  </div>
+        <div class="panel-heading">Maker - Activity</div>
         <ul class="list-group">
             {{#each allData spaceID = "{{spaceID}}"}}
             
@@ -92,19 +92,16 @@
     </div> -->
   {{/each}}
 
-  <div id="formdiv" class="boxdiv col-md-5">
-      <!-- {{> eachBox}} -->
+  <!-- <div id="formdiv" class="boxdiv col-md-5">
       <div class="panel panel-default">
-        <div class="panel-heading">Enter username (if this is your first time, pick a username to register!)</div>
+        <div class="panel-heading">Username (if this is your first time, pick a username to register!)</div>
+        <form class = "signin">
+          <input type="text" name="username" />
 
-        <ul class="list-group">
-          <li class="list-group-item">
-              <a href="#">{{Name}}</a> – <a href="#">{{CurrentActivity}}</a>
-          </li>
-        </ul>
+        </form>
       </div>
 
-    </div>
+    </div> -->
 
   </div>
 </template>

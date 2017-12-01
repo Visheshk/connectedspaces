@@ -38,11 +38,13 @@ Meteor.startup(() => {
 
 
     Meteor.methods({
-        createMember: function(memId, name, zipcode) {
+        createMember: function(memId, name, zipcode, email, phone) {
             members.insert({
                 "MemberID": memId,
                 "Name": name,
                 "Zipcode": zipcode,
+                "Email": email,
+                "Phone": phone,
                 "CreatedAt": date.getTime()
             });
             return name;

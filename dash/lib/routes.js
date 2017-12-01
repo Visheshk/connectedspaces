@@ -1,4 +1,4 @@
-Router.route('/', function() {
+Router.route('/home', function() {
 	Session.set("Member", "0");
 	Session.set("Name", undefined);
 	this.render('home');
@@ -17,6 +17,21 @@ Router.route('/member/:memid', function () {
 		this.render("loading");
 		this.next();
 	}
+});
+
+Router.route('/', function () {
+	this.render('memberEnter')
+	// var memId = String(this.params.memid);
+	// Session.set("Member", memId);
+	// this.subscribe('members', this.params.memId).wait();
+	// console.log(this.ready());
+	// if (this.ready()){
+	// 	Router.go('/memberCheck');
+	// }
+	// else{
+	// 	this.render("loading");
+	// 	this.next();
+	// }
 });
 
 Router.route('/memberCheck', function () {
@@ -40,7 +55,7 @@ Router.route('/setLocation/', function () {
 
 Router.route('/actitout', function () {
 	if(Session.get("Member") == "0" || Session.get("Member") == undefined){
-		alert("You haven't tapped a card!");
+		alert("You haven't entered a username (being on this url is murky territory!");
 		Router.go('/');
 	}
 	else {

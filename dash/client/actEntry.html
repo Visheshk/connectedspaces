@@ -1,10 +1,24 @@
 <template name = "signUp">
+  <p></p>
   {{#if currentUser}}
-  <h4> Hey there! </h4>
-  <p>This is a new card for our system. Enter your details to register it with us! </p>
+  <h4> Hey! You've claimed this new username! Enter your details to register it for eased revisits! </h4>
+  <br />
   <form class = "signup">
-    Name: <input type="text" name="name" />
-    ZipCode: <input type="number" name="zipcode" />
+    <div class="row">
+      Name: <input type="text" name="name" />
+      ZipCode: <input type="number" name="zipcode" />
+    </div>
+    <br />
+    <div class="row">
+      Email Address: <input type="email" name="email" />
+      Phone Number: <input type="number" name="phone" />
+    </div>
+    <div class="row">
+      Topics you're good at:
+    </div>
+    <div class="row">
+      Topics you're interested in:
+    </div>
     <input type="submit" value="submit">
   </form>
   {{/if}}
@@ -13,9 +27,20 @@
 </template>
 
 
+
+<template name = "memberEnter">
+<h3>Enter your username! If you've not registered before, enter the username you want!</h3>
+  <form class = "usernameForm">
+    <input type="text" name="username" />
+    <input type="submit" name="submit" />
+  </form>
+</template>
+
+
 <template name = "activityEntry">
   {{#if currentUser}}
-  <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp;   <sup>(not you? <a class="updateCard" href="#">Update this card's user details here)</a></sup></h3> <!-- </p> -->
+  <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp;   <!-- <sup>(not you? <a class="updateCard" href="#">Update this card's user details here)</a></sup> --></h3> <!-- </p> -->
+  <h4>What do you think you'll be doing today?</h4>
   <form class = "activityForm">
     <input type="text" name="activity" />
     <input type="submit" name="submit" />
@@ -23,52 +48,52 @@
   <div class = "row">
     <br /><br /><br /><br />
     <p>OR:</p>
-    <button class = "logOut">Log out</button>
+    <p><button class = "button logOut" style = "background: #c31">Cancel login</button></p>
   </div>
       
-      <div class="row row-offcanvas row-offcanvas-right">
+      <!-- <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-9">
         
           <div class="row">
             <div class="col-xs-6 col-lg-4">
               <h2>Heading</h2>
-              <!-- <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p> -->
+              
               <p><a class="btn btn-default btn-block" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+            </div>
           
             <div class="col-xs-6 col-lg-4">
               <h2>Heading</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+            </div><
             <div class="col-xs-6 col-lg-4">
               <h2>Heading</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+            </div>
             <div class="col-xs-6 col-lg-4">
               <h2>Heading</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+            </div>
             <div class="col-xs-6 col-lg-4">
               <h2>Heading</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+            </div>
             <div class="col-xs-6 col-lg-4">
               <h2>Heading</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+            </div>
             <div class="col-xs-6 col-lg-4">
               <h2>Heading</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+            </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
   {{/if}}
