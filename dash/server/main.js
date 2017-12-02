@@ -103,6 +103,44 @@ Meteor.startup(() => {
                 {upsert: true, multi:false}
             );
 
+            Meteor.call("addInterests", uid);
+
+        },
+
+        addInterests: function (uid) {
+            bodgeryInterests = [
+                {
+                    "space": 0,
+                    "interest": "Woodworking",
+                    "contactPerson": "Karen",
+                    "visitTimes": ["Mondays, 3-5pm"]
+                },
+                {
+                    "space": 0,
+                    "interest": "Machining",
+                    "contactPerson": "Karen",
+                    "visitTimes": ["Mondays, 3-5pm"]
+                },
+                {
+                    "space": 0,
+                    "interest": "Crafts",
+                    "contactPerson": "Karen",
+                    "visitTimes": ["Mondays, 3-5pm"]
+                },
+                {
+                    "space": 0,
+                    "interest": "Electronics",
+                    "contactPerson": "Karen",
+                    "visitTimes": ["Mondays, 3-5pm"]
+                },
+            ]
+            for (i in bodgeryInterests) {
+                Meteor.call("addInterest", uid, bodgeryInterests[i]);
+            }
+        },
+
+        addInterest: function (uid, interest) {
+            interests.insert(interest);
         }
     });
 
@@ -118,26 +156,7 @@ Meteor.publish('members', function tasksPublication() {
 });
 
 Accounts.onCreateUser(function (options, user) {
-    // space1 = user._id;
-    // console.log(Meteor.users);
     console.log(user._id); 
-    // space2 = Meteor.users.findOne()._id;
-    // displaySpaces.update({
-    //     $and: [{"roomID": user._id}, {"location": "space1"}]
-    // },
-    // {$set: {$"spaceID": space1} },
-    // // {$setOnInsert: {"roomID": uid, "location": "space1"} },
-    // {upsert: true} );
-    
-    // displaySpaces.update(
-    //     {$and: [
-    //         {"roomID": user._id}, 
-    //         {"location": "space2"}
-    //     ]},
-    //     {$set: {$"spaceID": space2} },
-    // // {$setOnInsert: {"roomID": uid, "location": "space1"} },
-    //     {upsert: true}
-    // );
 
     Meteor.call("setDisplaySpace", user._id, user._id, user._id);
     return user;
