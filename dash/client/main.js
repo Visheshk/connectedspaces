@@ -181,6 +181,28 @@ Template.activityEntry.events({
 			}
 		});
 	},
+	'click .gohome': function(event) {
+		// console.log('want to');
+		// Meteor.call("clearCardUser", Session.get("Member"), function (err, res){
+		// 	if(err) {
+		// 		alert("Server troubles :(");
+		// 		Router.go("/");
+		// 	}
+		// 	else {
+		// 		Router.go("/newMember");
+		// 	}
+		// })
+		console.log('want to');
+		Meteor.call("clearCardUser", Session.get("Member"), function (err, res){
+			if(err) {
+				alert("Server troubles :(");
+				Router.go("/");
+			}
+			else {
+				Router.go("/newMember");
+			}
+		});
+	},
 
 	'click .updateCard': function(event) {
 		console.log('want to');
@@ -205,6 +227,12 @@ Template.activityEntry.events({
 				Router.go('/');
 			}
 		});
+	}
+});
+
+Template.signUp.helpers({
+	interests: function() {
+		
 	}
 });
 

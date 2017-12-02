@@ -14,10 +14,20 @@
       Phone Number: <input type="number" name="phone" />
     </div>
     <div class="row">
-      Topics you're good at:
+      Topics you're good at: 
+      {{#each interests}}
+        <input type="checkbox" id="music" name="interest" value="music">
+        <label for="music">Music</label>
+        <input type="checkbox" id="sewing" name="interest" value="music">
+        <label for="music">Music</label>
+        <input type="checkbox" id="music" name="interest" value="music">
+        <label for="music">Music</label>
+        <input type="checkbox" id="music" name="interest" value="music">
+        <label for="music">Music</label>
+      
     </div>
     <div class="row">
-      Topics you're interested in:
+      Topics you're interested in (to learn more about, or work with):
     </div>
     <input type="submit" value="submit">
   </form>
@@ -39,7 +49,8 @@
 
 <template name = "activityEntry">
   {{#if currentUser}}
-  <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp;   <!-- <sup>(not you? <a class="updateCard" href="#">Update this card's user details here)</a></sup> --></h3> <!-- </p> -->
+  <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp;</h3>   
+    <p style="padding-left: 100px"> (not you? <a class="gohome" href="#">Enter enother username)</a> </p> 
   <h4>What do you think you'll be doing today?</h4>
   <form class = "activityForm">
     <input type="text" name="activity" />

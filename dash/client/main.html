@@ -47,7 +47,8 @@
 
 <template name = "noLocation">
   {{#unless currentUser}}
-    <h4> This computer does not have a logged in location, so we don't where you are, right now! Ask the librarian/boss person around to log in! </h4>
+    <!-- <h4> This computer does not have a logged in location, so we don't where you are, right now! Ask the librarian/boss person around to log in! </h4> -->
+    <p> <a href="/setlocation"> Log in to the Bodgery on this system – username: bodgery, password: badgerbadger </a></p>
   {{/unless}}
 </template>
 
