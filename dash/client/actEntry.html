@@ -16,18 +16,16 @@
     <div class="row">
       Topics you're good at: 
       {{#each interests}}
-        <input type="checkbox" id="music" name="interest" value="music">
-        <label for="music">Music</label>
-        <input type="checkbox" id="sewing" name="interest" value="music">
-        <label for="music">Music</label>
-        <input type="checkbox" id="music" name="interest" value="music">
-        <label for="music">Music</label>
-        <input type="checkbox" id="music" name="interest" value="music">
-        <label for="music">Music</label>
-      
+        <input type="checkbox" id="{{interest}}-skill" name="skillful" value="{{interest}}">
+        <label for="{{interest}}-skill">{{interest}}</label>
+      {{/each}}
     </div>
     <div class="row">
       Topics you're interested in (to learn more about, or work with):
+      {{#each interests}}
+        <input type="checkbox" id="{{interest}}-interest" name="interest" value="{{interest}}">
+        <label for="{{interest}}-interest">{{interest}}</label>
+      {{/each}}
     </div>
     <input type="submit" value="submit">
   </form>

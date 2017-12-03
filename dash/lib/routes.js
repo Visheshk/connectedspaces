@@ -55,7 +55,7 @@ Router.route('/setLocation/', function () {
 
 Router.route('/actitout', function () {
 	if(Session.get("Member") == "0" || Session.get("Member") == undefined){
-		alert("You haven't entered a username (being on this url is murky territory!");
+		alert("You haven't entered a username (being on this url is murky territory!)");
 		Router.go('/');
 	}
 	else {
@@ -65,7 +65,8 @@ Router.route('/actitout', function () {
 
 Router.route('/newMember', function() {
 	if(Session.get("Member") == "0" || Session.get("Member") == undefined){
-		alert("You haven't tapped a card!");
+		// alert("You haven't tapped a card!");
+		alert("You haven't entered a username (being on this url is murky territory!)");
 		Router.go('/');		
 	}
 	else {

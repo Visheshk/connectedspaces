@@ -38,13 +38,15 @@ Meteor.startup(() => {
 
 
     Meteor.methods({
-        createMember: function(memId, name, zipcode, email, phone) {
+        createMember: function(memId, name, zipcode, email, phone, skills, interests) {
             members.insert({
                 "MemberID": memId,
                 "Name": name,
                 "Zipcode": zipcode,
                 "Email": email,
                 "Phone": phone,
+                "Skills": skills,
+                "Interests": interests,
                 "CreatedAt": date.getTime()
             });
             return name;
@@ -140,6 +142,7 @@ Meteor.startup(() => {
         },
 
         addInterest: function (uid, interest) {
+            interest["space"] = uid
             interests.insert(interest);
         }
     });

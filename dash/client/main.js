@@ -232,19 +232,41 @@ Template.activityEntry.events({
 
 Template.signUp.helpers({
 	interests: function() {
-		
+		// console.log(interests.find({$and: [{"space": Meteor.userId()}]}));
+		return interests.find({$and: [{"space": Meteor.userId()}]});
 	}
 });
 
 Template.signUp.events({
 	'submit .signup': function(event) {
 		event.preventDefault();
+		allSkills = interests.find({$and: [{"space": Meteor.userId()}]}, {"interest": 1});
+		function getInterest (x) {
+			return x["interest"]
+		}
+		skillList = allSkills.map(function (x) { return (x["interest"]);} )
+		console.log(event.target[skillList[0] + "-skill"].checked);
+		console.log(event.target[skillList[0] + "-skill"].value);
+		skills = [];
+		interests = [];
+		for (s in skillList) {
+			if (event.target[skillList[s] + "-skill"].checked){
+				skills.push(skillList[s]);
+			}
+			if (event.target[skillList[s] + "-interest"].checked){
+				interests.push(skillList[s]);
+			}
+		}
+		console.log(skills);
+		console.log(interests);
 		Meteor.call("createMember", 
 			Session.get("Member"), 
 			event.target.name.value, 
 			event.target.zipcode.value, 
 			event.target.email.value,
 			event.target.phone.value,
+			skills,
+			interests,
 			function (err, res) {
 			if (err) {
 				alert("sign up failed at server end! :(");
