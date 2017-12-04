@@ -93,22 +93,22 @@ Template.boxes.helpers({
 
 Template.activityEntry.helpers({
 	name() {
-		chosenAction = ""
-		Mousetrap.bind('m', function() { 
-			chosenAction = "3D Modeling";
-			console.log(chosenAction); 
-			logAct(chosenAction);
-		});
-		Mousetrap.bind('p', function() { 
-			chosenAction = "Programming";
-			console.log(chosenAction); 
-			logAct(chosenAction);
-		});
-		Mousetrap.bind('v', function() { 
-			chosenAction = "Video Production";
-			console.log(chosenAction); 
-			logAct(chosenAction);
-		});
+		// chosenAction = ""
+		// Mousetrap.bind('m', function() { 
+		// 	chosenAction = "3D Modeling";
+		// 	console.log(chosenAction); 
+		// 	logAct(chosenAction);
+		// });
+		// Mousetrap.bind('p', function() { 
+		// 	chosenAction = "Programming";
+		// 	console.log(chosenAction); 
+		// 	logAct(chosenAction);
+		// });
+		// Mousetrap.bind('v', function() { 
+		// 	chosenAction = "Video Production";
+		// 	console.log(chosenAction); 
+		// 	logAct(chosenAction);
+		// });
 
 		logAct = function (act) {
 			Meteor.call("logActivity", 
@@ -130,20 +130,51 @@ Template.activityEntry.helpers({
 
 		memb = members.findOne({"MemberID": Session.get("Member")});
 		if (memb != undefined){
-			Session.set("Name", members.findOne({"MemberID": Session.get("Member")}).Name);	
+			Session.set("Name", members.findOne({"MemberID": Session.get("Member")}).FirstName);	
 		}
 		else {
 			Session.set("Name", "");
+			// alert("Authentication failed! Sending you back home");
+			Session.set("Member", undefined);
+			Router.go("/");
 		}
-		return Session.get("Name");
+
+		if (Session.get("Name").trim() == ""){
+			return "<<empty name>>";
+		}
+		else {
+			return Session.get("Name");	
+		}
+	},
+
+	interests: function() {
+		// console.log(interests.find({$and: [{"space": Meteor.userId()}]}));
+		return interests.find({$and: [{"space": Meteor.userId()}]});
+	}
+});
+
+Template.memberCheck.onCreated(function () {
+	memid = Session.get("Member");
+	if (members.findOne({"MemberID": memid})) {
+		// uname = 
+		// Session.set("Username", "name");
+		Router.go("/actitout");
+	}
+	// else if (members.findOne({"MemberCard": memid})) {
+	// 	Session.set("Mode", "name");
+	// 	Router.go("/actitout");	
+	// }
+	else {
+		Router.go("/newMember");	
 	}
 });
 
 Template.memberEnter.events({
 	'submit .usernameForm': function(event) {
-		console.log("username " + event.target.username.value);
 		event.preventDefault();
+		console.log("username " + event.target.username.value);
 		Router.go('/member/' + event.target.username.value);
+		//// *** TODO: reinstate log activity here *** ////
 		// Meteor.call("logActivity",
 		// 	Session.get("Member"), 
 		// 	Session.get("Name"), 
@@ -163,7 +194,13 @@ Template.memberEnter.events({
 });
 
 Template.activityEntry.events({
-	'submit .activityForm': function(event) {
+	'click .reset-form': function (event){
+		Session.set("Member", undefined);
+		Session.set("Name", undefined);
+		Router.go("/");
+	},
+
+ 	'submit .activityForm': function(event) {
 		event.preventDefault();
 		Meteor.call("logActivity", 
 			Session.get("Member"), 
@@ -181,6 +218,25 @@ Template.activityEntry.events({
 			}
 		});
 	},
+
+	'click .activity': function (event){
+		Meteor.call("logActivity", 
+			Session.get("Member"), 
+			Session.get("Name"), 
+			event.currentTarget.name, 
+			Meteor.userId(), 
+			Meteor.user().username, 
+			function (err, res){
+			if(err){
+				alert("couldn't log activity! Something wrong with server :(");
+				Router.go('/');
+			}
+			else {
+				Router.go('/');
+			}
+		});
+	},
+
 	'click .gohome': function(event) {
 		// console.log('want to');
 		// Meteor.call("clearCardUser", Session.get("Member"), function (err, res){
@@ -231,6 +287,25 @@ Template.activityEntry.events({
 });
 
 Template.signUp.helpers({
+	firstname: function () {
+		return(Session.get("Member").split(" ")[0]);
+	},
+
+	lastname: function () {
+		name = Session.get("Member");
+		name = name.trim();
+		Session.set("Member", name);
+		names = name.split(" ");
+		console.log(names)
+		if (names.length == 1){
+			return(" ");
+		}
+		else {
+			return(names[(names.length - 1)]);
+		}
+
+	},
+
 	interests: function() {
 		// console.log(interests.find({$and: [{"space": Meteor.userId()}]}));
 		return interests.find({$and: [{"space": Meteor.userId()}]});
@@ -238,6 +313,11 @@ Template.signUp.helpers({
 });
 
 Template.signUp.events({
+	'click .reset-form': function (event) {
+		Session.set("Member", 0);
+		Router.go("/");
+	}
+	,
 	'submit .signup': function(event) {
 		event.preventDefault();
 		allSkills = interests.find({$and: [{"space": Meteor.userId()}]}, {"interest": 1});
@@ -259,11 +339,15 @@ Template.signUp.events({
 		}
 		console.log(skills);
 		console.log(interests);
+		uname = event.target.firstname.value.toLowerCase() + event.target.lastname.value.toLowerCase();
+		Session.set("Username", uname)
 		Meteor.call("createMember", 
 			Session.get("Member"), 
-			event.target.name.value, 
+			uname,
+			event.target.firstname.value, 
+			event.target.lastname.value, 
 			event.target.zipcode.value, 
-			event.target.email.value,
+			event.target.emailadd.value,
 			event.target.phone.value,
 			skills,
 			interests,
@@ -277,275 +361,6 @@ Template.signUp.events({
 				Router.go('/actitout');
 			}
 		});
-	}
-});
-
-Template.videoBox.onCreated(function () {
-	// var AppearIn = window.AppearIn || require('appearin-sdk');
-	// var appearin = new AppearIn();
-
-	// // API.isAppearinCompatible(function (data) {
-	// // 	if (!data.isSupported) {
-	// // 	    // $('#notSupportedModal').modal();
-	// // 	    // mixpanel.track("Did not pass the technical checks");
-	// // 	    console.log("not supported");
-	// // 	    alert("not sop!!!");
-	// // 	}
-	// // 	else {
-	// // 		console.log("not supported");
-	// // 		alert("supported!!!");
-	// // 	}
-	// // });
-
-	// var isWebRtcCompatible = appearin.isWebRtcCompatible();
-	// if (isWebRtcCompatible){
-	// 	// alert("compatibuuul");
-	// }
-	// else {
-	// 	// alert("not compats");
-	// }
-
-	// roomname = "cspace-roooom1";
-	// appearin.addRoomToElementById("vidframe2", roomname);
-})
-
-Template.videoBox.helpers({
-	// chatFrame: function () {
-	// 	var AppearIn = window.AppearIn || require('appearin-sdk');
-	// 	var appearin = new AppearIn();
-
-	// 	// API.isAppearinCompatible(function (data) {
-	// 	// 	if (!data.isSupported) {
-	// 	// 	    // $('#notSupportedModal').modal();
-	// 	// 	    // mixpanel.track("Did not pass the technical checks");
-	// 	// 	    console.log("not supported");
-	// 	// 	    alert("not sop!!!");
-	// 	// 	}
-	// 	// 	else {
-	// 	// 		console.log("not supported");
-	// 	// 		alert("supported!!!");
-	// 	// 	}
-	// 	// });
-
-	// 	var isWebRtcCompatible = appearin.isWebRtcCompatible();
-	// 	if (isWebRtcCompatible){
-	// 		// alert("compatibuuul");
-	// 	}
-	// 	else {
-	// 		// alert("not compats");
-	// 	}
-
-	// 	roomname = "cspace-roooom1";
-	// 	appearin.addRoomToElementById("vidframe2", roomname);
-	// }
-
-	chatRoomName: function () {
-		// roomname = "cspace-roooom1";
-		roomname = "cspace" + Meteor.user().username;
-		return roomname;
-	}
-})
-
-Template.videoChat.onCreated(function () {
-	// var AppearIn = window.AppearIn || require('appearin-sdk');
-	// var appearin = new AppearIn();
-
-	// // API.isAppearinCompatible(function (data) {
-	// // 	if (!data.isSupported) {
-	// // 	    // $('#notSupportedModal').modal();
-	// // 	    // mixpanel.track("Did not pass the technical checks");
-	// // 	    console.log("not supported");
-	// // 	    alert("not sop!!!");
-	// // 	}
-	// // 	else {
-	// // 		console.log("not supported");
-	// // 		alert("supported!!!");
-	// // 	}
-	// // });
-
-	// var isWebRtcCompatible = appearin.isWebRtcCompatible();
-	// if (isWebRtcCompatible){
-	// 	alert("compatibuuul");
-	// }
-	// else {
-	// 	alert("not compats");
-	// }
-
-	// roomname = "cspace-" + Meteor.user().username;
-	// appearin.addRoomToElementById("vidframe", roomname);
-
-
-
-	// window.peer = new Peer({
-	// 	key: peerKey,  // get a free key at http://peerjs.com/peerserver
-	// 	debug: 3,
-	// 	config: {'iceServers': [
-	// 		{ url: 'stun:stun.l.google.com:19302' },
-	// 		{ url: 'stun:stun1.l.google.com:19302' },
-	// 	]}
- //    });
- //    // Session.set("peerId", peer.id);
-	// peer.on('open', function () {
-	// 	$('#myPeerId').text(peer.id);
-	// 	Session.set("peerId", peer.id);
-	// 	// Presence.state = function() {
-	// 	// console.log("calling here state");
-	// 	//   return {
-	// 	//     peerId: Session.get("peerId"),
-	// 	//     room: Meteor.user().username
-	// 	//   };
-	// 	// }
-	// 	console.log(peer.id);
-
-	// });
-
-	// receiveCall = function (incomingCall) {
-	// 	window.currentCall = incomingCall;
-	// 	incomingCall.answer(window.localStream);
-	// 	incomingCall.on('stream', function (remoteStream) {
-	// 		window.remoteStream = remoteStream;
-	// 		var video = document.getElementById("theirVideo")
-	// 		video.src = URL.createObjectURL(remoteStream);
-	// 	});
-	// }
- //    // Handle event: remote peer receives a call
- //    peer.on('call', function (incomingCall) {
-	// 	swal({   
-	// 		title: "Call!",   
-	// 		text: "You're receiving a call!",   
-	// 		type: "warning",   
-	// 		showCancelButton: true,   
-	// 		confirmButtonColor: "#1acc2b",   
-	// 		confirmButtonText: "Receive!",   
-	// 		cancelButtonText: "Hang up!",   
-	// 		closeOnConfirm: false,   
-	// 		closeOnCancel: false 
-	// 	}, function(isConfirm){   
-	// 		if (isConfirm) {     
-	// 			// swal("Deleted!", "Your imaginary file has been deleted.", "success");  
-	// 			// console.log("yaahs");
-	// 			receiveCall(incomingCall);
-	// 			swal.close();
-	// 			$('#theirVidContainer').show();
-	// 		} else {     
-	// 			swal.close();
-	// 			// swal("Cancelled", "Your imaginary file is safe :)", "error");   
-	// 		} 
-	// 	});
- //    });
-    
- // //    Presence.state = function() {
-	// //   return {
-	// //     peerId: Session.get("peerId"),
-	// //     room: Meteor.user().username
-	// //   };
-	// // }
-
-	// navigator.getUserMedia = ( navigator.getUserMedia ||
-	//                         navigator.webkitGetUserMedia ||
-	//                         navigator.mozGetUserMedia ||
-	//                         navigator.msGetUserMedia );
-
-	// // get audio/video
-	// // console.log(Session.get("streamSettings"));
-	// navigator.getUserMedia(Session.get("streamSettings"), function (stream) {
-	//     //display video
-	// 	var video = document.getElementById("myVideo");
-	// 	video.src = URL.createObjectURL(stream);
-	// 	window.localStream = stream;
-	// },
-	// function (error) { 
-	// 	console.log(error); 
-	// });
-	// $('#theirVideo').hide()
-});
-
-Template.videoChat.helpers({
-	videoPeers: function () {
-		Mousetrap.bind('1', function() { 
-			// changePeerSelector(0);
-			$('#peerIds option:eq(0)').prop('selected', 'selected');
-		});
-
-		Mousetrap.bind('2', function() { 
-			$('#peerIds option:eq(1)').prop('selected', 'selected');
-		});
-
-		Mousetrap.bind('v', function() { 
-			$('#makeCall').click()
-		});
-
-		Mousetrap.bind('c', function() { 
-			$('#endCall').click()
-		});
-
-		// changePeerSelector = function (selected) {
-		// 	console.log($('#peerIds option:eq(selected)'));
-		// 	$('#peerIds option:eq(selected)').prop('selected', 'selected');
-		// }
-
-
-		//only chat with other locations signed in
-		return Presences.find({$and: [{"state.peerId": {$ne: 0}}, {"userId": {$ne: Meteor.userId()}}]});
-
-		//chat with other sign ins of same location as well
-		// console.log("video chat" + Meteor.user());
-		// return Presences.find({$and: [{"state.peerId": {$ne: 0}}, {"state.room": {$ne: Meteor.user().username}}]});
-
-		// Session.set("peerId", peer.id);
-		// console.log(peer);
-		// console.log(Presences.find({}));
-		$('#theirVidContainer').hide();
-	},
-
-
-});
-
-Template.videoChat.events({
-	"click .toggleStream": function (event) {
-		console.log(event.target.id);
-		feat = "video";
-		var streamSettings = Session.get("streamSettings");
-		streamSettings[feat] = !streamSettings[feat];
-		if (streamSettings[feat]){
-			$('#myVideo').show();
-		}
-		else {
-			$('#myVideo').hide();
-		}
-		Session.set("streamSettings", streamSettings);
-		// get audio/video
-		// console.log(Session.get("streamSettings"));
-		navigator.getUserMedia(Session.get("streamSettings"), function (stream) {
-		    //display video
-			var video = document.getElementById("myVideo");
-			video.src = URL.createObjectURL(stream);
-			window.localStream = stream;
-		},
-		function (error) { 
-			console.log(error); 
-		});	
-		// console.log(peer.id);
-	},
-
-	"click #makeCall": function () {
-		
-		// console.log("calling" + $('#peerIds').val());
-		// var outgoingCall = peer.call($('#remotePeerId').val(), window.localStream);
-		var outgoingCall = peer.call($('#peerIds').val(), window.localStream);
-		window.currentCall = outgoingCall;
-		outgoingCall.on('stream', function (remoteStream) {
-			$('#theirVidContainer').show();
-			console.log("connected");
-			window.remoteStream = remoteStream;
-			var video = document.getElementById("theirVideo")
-			video.src = URL.createObjectURL(remoteStream);
-		});
-    },
-
-	"click #endCall": function () {
-		window.currentCall.close();
-		$('#theirVidContainer').hide();
 	}
 });
 

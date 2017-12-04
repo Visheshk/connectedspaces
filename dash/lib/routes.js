@@ -8,15 +8,16 @@ Router.route('/home', function() {
 Router.route('/member/:memid', function () {
 	var memId = String(this.params.memid);
 	Session.set("Member", memId);
-	this.subscribe('members', this.params.memId).wait();
-	console.log(this.ready());
-	if (this.ready()){
-		Router.go('/memberCheck');
-	}
-	else{
-		this.render("loading");
-		this.next();
-	}
+	// this.subscribe('members', this.params.memId).wait();
+	// console.log(this.ready());
+	// if (this.ready()){
+	this.render('memberCheck');
+	// Router.go('/memberCheck');
+	// }
+	// else{
+	// 	this.render("loading");
+	// 	this.next();
+	// }
 });
 
 Router.route('/', function () {
@@ -55,7 +56,7 @@ Router.route('/setLocation/', function () {
 
 Router.route('/actitout', function () {
 	if(Session.get("Member") == "0" || Session.get("Member") == undefined){
-		alert("You haven't entered a username (being on this url is murky territory!)");
+		alert("No username found, going home.");
 		Router.go('/');
 	}
 	else {
@@ -66,7 +67,7 @@ Router.route('/actitout', function () {
 Router.route('/newMember', function() {
 	if(Session.get("Member") == "0" || Session.get("Member") == undefined){
 		// alert("You haven't tapped a card!");
-		alert("You haven't entered a username (being on this url is murky territory!)");
+		alert("No username found, going home.");
 		Router.go('/');		
 	}
 	else {

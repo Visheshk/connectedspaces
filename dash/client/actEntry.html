@@ -1,25 +1,103 @@
 <template name = "signUp">
-  <p></p>
   {{#if currentUser}}
-  <h4> Hey! You've claimed this new username! Enter your details to register it for eased revisits! </h4>
-  <br />
-  <form class = "signup">
-    <div class="row">
-      Name: <input type="text" name="name" />
-      ZipCode: <input type="number" name="zipcode" />
+  <h4> Hey! Enter your details to register for eased revisits! </h4> <button class="btn reset-form">If you want to re-enter your name, <!-- or tap a different card, --> click here. </button> <p></p>
+
+  <form class="signup">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="firstname">First Name:</label>
+        <input type="text" class="form-control" id="firstname" value="{{firstname}}" readonly>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="lastname">Last Name:</label>
+        <input type="text" class="form-control" id="lastname" value="{{lastname}}" readonly>
+      </div>
+      <!-- <div class="form-group col-md-4">
+        <button class="btn reset-form">If you want to re-enter your name, or tap a different card, click here. </button>
+      </div> -->
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="email">E-Mail *:</label>
+        <input type="email" class="form-control" id="emailadd"  required>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="lastname">Phone Number:</label>
+        <input type="tel" class="form-control" id="phone">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="lastname">Zip Code:</label>
+        <input type="number" class="form-control" id="zipcode">
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <div class="form-group col-md-3">
+        <label for="inputAddress">Topics you're good at:  </label>
+      </div>
+      <div class="form-group col-md-9">
+        {{#each interests}}
+          <!-- <div class="form-check form-check-inline"> -->
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" id="{{interest}}-skill" name="skillful" value="{{interest}}"> {{interest}}
+            </label>
+          <!-- </div> -->
+        {{/each}}
+      </div>
+      <!-- <div class="form-group col-md-2"> <p>   </p> </div> -->
+    </div>
+
+    <div class="form-group form-row">
+      <div class="form-group col-md-3">      
+        <label for="inputAddress">Topics you're interested in:  </label>
+      </div>
+      <div class="form-group col-md-9">
+      {{#each interests}}
+          <!-- <div class="form-check form-check-inline"> -->
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" id="{{interest}}-interest" name="interest" value="{{interest}}"> {{interest}}
+            </label>
+          <!-- </div> -->
+        {{/each}}
+        </div>
+        <!-- <div class="form-group col-md-2"> <p>   </p></div> -->
+    </div>
+ 
+    <!-- <div class="form-group">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox"> Check me out
+        </label>
+      </div>
+    </div> -->
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
+
+<!--   <form class = "signup2">
+    <div class="form-row">
+      <div class="col">
+        First Name: <input type="text" name="firstname" class="form-control" placeholder="{{firstname}}" readonly/>
+      </div>
+      <div class="col">
+        Last Name: <input type="text" name="lastname" class="form-control" placeholder="{{lastname}}" readonly/>
+      </div>
+      <div class="col">
+        <button class="btn reset-form">If you want to re-enter your name, or tap a different card, click here. </button>
+      </div>
     </div>
     <br />
-    <div class="row">
+    <div class="row form-inline">
       Email Address: <input type="email" name="email" />
       Phone Number: <input type="number" name="phone" />
     </div>
-    <div class="row">
+    
       Topics you're good at: 
       {{#each interests}}
+      <div class="form-check form-check-inline">
         <input type="checkbox" id="{{interest}}-skill" name="skillful" value="{{interest}}">
         <label for="{{interest}}-skill">{{interest}}</label>
+      </div>
       {{/each}}
-    </div>
+    
     <div class="row">
       Topics you're interested in (to learn more about, or work with):
       {{#each interests}}
@@ -28,83 +106,61 @@
       {{/each}}
     </div>
     <input type="submit" value="submit">
-  </form>
+  </form> -->
   {{/if}}
 
   {{>noLocation}}
 </template>
 
-
+<template name = "memberCheck">
+  {{> loading}}
+</template>
 
 <template name = "memberEnter">
-<h3> Please enter your Full Name (Firstname Lastname)! If you've not registered before, click register!</h3>
-  <form class = "usernameForm">
-    <input type="text" name="username" />
-    <input type="submit" class="register" name="submit" value="Register"/>
-    <input type="submit" class="login" name="login" value="Log in"/>
+<h4> Please enter your Full Name (Firstname Lastname). <!-- If you've not registered before, click register! --></h4> <br />
+  <form class = "usernameForm form-inline">
+    <input type="text" class="form-control" name="username" />
+    <!-- <input type="submit" class="register btn" name="submit" value="Register"/> -->
+    <input type="submit" class="login btn" name="login" value="Log in"/>
   </form>
 </template>
 
 
 <template name = "activityEntry">
   {{#if currentUser}}
-  <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp;</h3>   
-    <p style="padding-left: 100px"> (not you? <a class="gohome" href="#">Enter enother username)</a> </p> 
-  <h4>What do you think you'll be doing today?</h4>
-  <form class = "activityForm">
-    <input type="text" name="activity" />
-    <input type="submit" name="submit" />
-  </form>
-  <div class = "row">
-    <br /><br /><br /><br />
-    <p>OR:</p>
-    <p><button class = "button logOut" style = "background: #c31">Cancel login</button></p>
-  </div>
+  <div class="row">
+    <div class="col-md-5">
       
-      <!-- <div class="row row-offcanvas row-offcanvas-right">
-        <div class="col-xs-12 col-sm-9">
-        
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              
-              <p><a class="btn btn-default btn-block" href="#" role="button">View details &raquo;</a></p>
-            </div>
-          
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-          </div>
+      <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp;</h3>   
+        <p style="padding-left: 100px"> <!-- (not you? <a class="gohome" href="#">Enter enother username)</a> --> 
+          <button class="btn btn-secondary btn-sm reset-form">Doesn't feel like your login? Enter name again.</button>
+        </p> 
+      <h4>What do you think you'll be doing today?</h4>
+      {{#each interests}}
+        <button type="button" class="btn btn-success activity" name="{{interest}}">{{interest}}</button>
+      {{/each}}
+      <!-- <form class = "activityForm">
+        <input type="text" name="activity" />
+        <input type="submit" name="submit" />
+      </form> -->
+      <div class = "row">
+        <br /><br />
+        <p>OR:</p>
+        <p> <button class="btn logOut" style="background: #c31">Cancel login</button></p>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="card" style="width: 50rem;">
+        <div class="card-body">
+          <h4 class="card-title">Card title</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
         </div>
-      </div> -->
-
+      </div>
+    </div>
+  </div>
 
   {{/if}}
 

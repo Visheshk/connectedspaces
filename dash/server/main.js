@@ -38,10 +38,14 @@ Meteor.startup(() => {
 
 
     Meteor.methods({
-        createMember: function(memId, name, zipcode, email, phone, skills, interests) {
+        createMember: function(memId, username, firstname, lastname, zipcode, email, phone, skills, interests) {
+            name = firstname + lastname[0]
             members.insert({
                 "MemberID": memId,
-                "Name": name,
+                "Username": username,
+                "FirstName": firstname,
+                "LastName": lastname,
+                // "Name": name,
                 "Zipcode": zipcode,
                 "Email": email,
                 "Phone": phone,
