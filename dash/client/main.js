@@ -327,17 +327,17 @@ Template.signUp.events({
 		skillList = allSkills.map(function (x) { return (x["interest"]);} )
 		console.log(event.target[skillList[0] + "-skill"].checked);
 		console.log(event.target[skillList[0] + "-skill"].value);
-		skills = [];
-		interests = [];
+		skillsChecked = [];
+		interestsChecked = [];
 		for (s in skillList) {
 			if (event.target[skillList[s] + "-skill"].checked){
-				skills.push(skillList[s]);
+				skillsChecked.push(skillList[s]);
 			}
 			if (event.target[skillList[s] + "-interest"].checked){
-				interests.push(skillList[s]);
+				interestsChecked.push(skillList[s]);
 			}
 		}
-		console.log(skills);
+		console.log(skillsChecked);
 		console.log(interests);
 		uname = event.target.firstname.value.toLowerCase() + event.target.lastname.value.toLowerCase();
 		Session.set("Username", uname)
@@ -349,8 +349,8 @@ Template.signUp.events({
 			event.target.zipcode.value, 
 			event.target.emailadd.value,
 			event.target.phone.value,
-			skills,
-			interests,
+			skillsChecked,
+			interestsChecked,
 			function (err, res) {
 			if (err) {
 				alert("sign up failed at server end! :(");
