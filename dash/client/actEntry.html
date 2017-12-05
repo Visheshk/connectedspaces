@@ -6,11 +6,11 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="firstname">First Name:</label>
-        <input type="text" class="form-control" id="firstname" value="{{firstname}}" readonly>
+        <input type="text" class="form-control" id="firstname" value="{{firstname}}">
       </div>
       <div class="form-group col-md-6">
         <label for="lastname">Last Name:</label>
-        <input type="text" class="form-control" id="lastname" value="{{lastname}}" readonly>
+        <input type="text" class="form-control" id="lastname" value="{{lastname}}">
       </div>
       <!-- <div class="form-group col-md-4">
         <button class="btn reset-form">If you want to re-enter your name, or tap a different card, click here. </button>
@@ -56,7 +56,9 @@
             </label>
           </div>
           <div class="col-md-8">
+            <!-- {{#if anySubs}} -->
             Includes: {{subInterests}}
+            <!-- {{/if}} -->
           </div>
         </div>
         {{/each}}
@@ -77,7 +79,7 @@
 <template name = "memberEnter">
 <h4> Please enter your Full Name (Firstname Lastname). <!-- If you've not registered before, click register! --></h4> <br />
   <form class = "usernameForm form-inline">
-    <input type="text" class="form-control" name="username" />
+    <input type="text" class="form-control" name="username" required/>
     <!-- <input type="submit" class="register btn" name="submit" value="Register"/> -->
     <input type="submit" class="login btn" name="login" value="Log in"/>
   </form>
@@ -100,7 +102,7 @@
   <div class="row">
     <div class="col-md-6">
       
-      <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp; <button class="btn btn-secondary btn-sm reset-form">Doesn't feel like your login? Enter name again.</button></h3>   
+      <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp; <button class="btn btn-secondary btn-sm reset-form">(Not you? Click to enter name again.)</button></h3>   
         <p style="padding-left: 100px"> <!-- (not you? <a class="gohome" href="#">Enter enother username)</a> --> 
         </p> 
         <br />

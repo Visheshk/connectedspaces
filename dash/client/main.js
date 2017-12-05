@@ -101,8 +101,14 @@ Template.activityEntry.helpers({
 		return interests.find({$and: [{"space": Meteor.userId()}]});
 	},
 
+	anySubs: function () {
+		console.log(this.subInterests);
+		return this.subInterests != "";
+	},
+
 	userInterests: function() {
 		// console.log(interests.find({$and: [{"space": Meteor.userId()}]}));
+		
 		console.log(members.findOne({"MemberID": Session.get("Member")}).Interests);
 		return members.findOne({"MemberID": Session.get("Member")}).Interests;
 	},
@@ -203,6 +209,7 @@ Template.activityEntry.events({
 				Router.go('/');
 			}
 			else {
+				alert("Activity Logged!");
 				Router.go('/');
 			}
 		});
