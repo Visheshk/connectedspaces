@@ -1,6 +1,6 @@
 <template name = "signUp">
   {{#if currentUser}}
-  <h4> Hey! Enter your details to register for eased revisits! </h4> <button class="btn reset-form">If you want to re-enter your name, <!-- or tap a different card, --> click here. </button> <p></p>
+  <h4> Hey, register here! </h4> <button class="btn reset-form">If you want to re-enter your name, <!-- or tap a different card, --> click here. </button> <p></p>
 
   <form class="signup">
     <div class="form-row">
@@ -30,83 +30,41 @@
         <input type="number" class="form-control" id="zipcode">
       </div>
     </div>
-    <div class="form-group form-row">
+<!--     <div class="form-group form-row">
       <div class="form-group col-md-3">
         <label for="inputAddress">Topics you're good at:  </label>
       </div>
       <div class="form-group col-md-9">
         {{#each interests}}
-          <!-- <div class="form-check form-check-inline"> -->
             <label class="form-check-label">
               <input class="form-check-input" type="checkbox" id="{{interest}}-skill" name="skillful" value="{{interest}}"> {{interest}}
             </label>
-          <!-- </div> -->
         {{/each}}
       </div>
-      <!-- <div class="form-group col-md-2"> <p>   </p> </div> -->
     </div>
-
+ -->
     <div class="form-group form-row">
-      <div class="form-group col-md-3">      
-        <label for="inputAddress">Topics you're interested in:  </label>
+      <div class="form-group col-md-2">      
+        <label for="inputAddress">Topics you're interested in: </label>
       </div>
-      <div class="form-group col-md-9">
-      {{#each interests}}
-          <!-- <div class="form-check form-check-inline"> -->
+      <div class="form-group col-md-9 col-md-offset-1">
+        {{#each interests}}
+        <div class="row">
+          <div class="col-md-3">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" id="{{interest}}-interest" name="interest" value="{{interest}}"> {{interest}}
+              <input class="form-check-input" type="checkbox" id="{{interest}}-interest" name="interest" value="{{interest}}"> {{interest}}  
             </label>
-          <!-- </div> -->
-        {{/each}}
+          </div>
+          <div class="col-md-8">
+            Includes: {{subInterests}}
+          </div>
         </div>
-        <!-- <div class="form-group col-md-2"> <p>   </p></div> -->
-    </div>
- 
-    <!-- <div class="form-group">
-      <div class="form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" type="checkbox"> Check me out
-        </label>
+        {{/each}}
+        
       </div>
-    </div> -->
-    <button type="submit" class="btn btn-primary">Sign Up</button>
+    </div>
+     <button type="submit" class="btn btn-primary">Sign Up</button>
   </form>
-
-<!--   <form class = "signup2">
-    <div class="form-row">
-      <div class="col">
-        First Name: <input type="text" name="firstname" class="form-control" placeholder="{{firstname}}" readonly/>
-      </div>
-      <div class="col">
-        Last Name: <input type="text" name="lastname" class="form-control" placeholder="{{lastname}}" readonly/>
-      </div>
-      <div class="col">
-        <button class="btn reset-form">If you want to re-enter your name, or tap a different card, click here. </button>
-      </div>
-    </div>
-    <br />
-    <div class="row form-inline">
-      Email Address: <input type="email" name="email" />
-      Phone Number: <input type="number" name="phone" />
-    </div>
-    
-      Topics you're good at: 
-      {{#each interests}}
-      <div class="form-check form-check-inline">
-        <input type="checkbox" id="{{interest}}-skill" name="skillful" value="{{interest}}">
-        <label for="{{interest}}-skill">{{interest}}</label>
-      </div>
-      {{/each}}
-    
-    <div class="row">
-      Topics you're interested in (to learn more about, or work with):
-      {{#each interests}}
-        <input type="checkbox" id="{{interest}}-interest" name="interest" value="{{interest}}">
-        <label for="{{interest}}-interest">{{interest}}</label>
-      {{/each}}
-    </div>
-    <input type="submit" value="submit">
-  </form> -->
   {{/if}}
 
   {{>noLocation}}
@@ -125,20 +83,42 @@
   </form>
 </template>
 
+<template name="interestPeople">
+  {{#each peopleOfInterest}}
+    <p class="list-group-item-text"> {{name}} </p>
+  {{/each}}
+</template>
+
+<template name="interestTimes">
+  {{#each timesOfInterest}}
+    <p class="list-group-item-text"> {{day}}: {{time}} </p>
+  {{/each}}
+</template>
 
 <template name = "activityEntry">
   {{#if currentUser}}
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
       
-      <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp;</h3>   
+      <!-- <p> --> <h3>Hi {{name}}! &emsp;&emsp;&emsp;&emsp; <button class="btn btn-secondary btn-sm reset-form">Doesn't feel like your login? Enter name again.</button></h3>   
         <p style="padding-left: 100px"> <!-- (not you? <a class="gohome" href="#">Enter enother username)</a> --> 
-          <button class="btn btn-secondary btn-sm reset-form">Doesn't feel like your login? Enter name again.</button>
         </p> 
+        <br />
       <h4>What do you think you'll be doing today?</h4>
+      <!-- <div class="row"> -->
+      <!-- <div class="btn-group btn-group-lg flex-wrap" aria-label="interest-select"> -->
       {{#each interests}}
-        <button type="button" class="btn btn-success activity" name="{{interest}}">{{interest}}</button>
+        <!-- <div class="col-md-2"> -->
+
+            <button type="button" class="btn btn-lg btn-success activity" name="{{interest}}">{{interest}}</button>
+            <!-- <button type="button" class="btn btn-default">Middle</button>
+            <button type="button" class="btn btn-default">Right</button>
+          
+          <button type="button" class="btn btn-success activity" name="{{interest}}">{{interest}}</button> -->
+        <!-- </div> -->
       {{/each}}
+      <!-- </div> -->
+      <!-- </div> -->
       <!-- <form class = "activityForm">
         <input type="text" name="activity" />
         <input type="submit" name="submit" />
@@ -146,19 +126,42 @@
       <div class = "row">
         <br /><br />
         <p>OR:</p>
-        <p> <button class="btn logOut" style="background: #c31">Cancel login</button></p>
+        <p> <button class="btn btn-outline-secondary logOut" style="background: #d31">Cancel login</button></p>
       </div>
     </div>
-    <div class="col-md-7">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Card title</h4>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
+    <div class="col-md-6">
+      <!-- <div class="jumbotron"> -->
+        <!-- <div class="card-body"> -->
+          <h2>Suggested Connections</h2>
+          <h4>Here are some people and times in the bodgery matching your interests!</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <h3> People to Meet </h3>
+              <ul class="list-group">
+                
+                  {{#each userInterests}}
+                  <li class="list-group-item">
+                  <h4 class="list-group-item-heading">{{this}}</h4>
+                    {{> interestPeople}}
+                  </li>
+
+                  {{/each}}
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h3> Times to visit </h3>
+                <ul class="list-group">
+                  
+                    {{#each userInterests}}
+                    <li class="list-group-item">
+                    <h4 class="list-group-item-heading">{{this}}</h4>
+                      {{> interestTimes}}
+                    </li>
+
+                    {{/each}}
+                </ul>
+            </div>
+          </div>
     </div>
   </div>
 

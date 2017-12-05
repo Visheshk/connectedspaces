@@ -3,8 +3,6 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
-// import { members } from '../server/imports/collections.js';
-// import { activities } from '../imports/collections.js';
 
 Session.set("locationSet", true);
 Session.set("refreshBox", true);
@@ -13,32 +11,6 @@ Session.set("peerId", 0);
 Session.set("streamSettings", {audio: true, video: true});
 
 Meteor.subscribe('userPresence');
-
-// Presence.state = function() {
-// console.log("calling here state");
-//   return {
-//     peerId: Session.get("peerId"),
-//     room: Meteor.user().username
-//   };
-// }
-
-// Template.spaceName.helpers({
-// 	roomName: function () {
-// 		return Meteor.user().username;
-// 	}
-// });
-
-// Template.eachBox.onCreated(function () {
-// 	firstlocid = 0;
-// 	firstloc = Meteor.users.findOne();
-// 	if (firstloc != undefined){
-// 		// console.log("defined");
-// 		firstlocid = firstloc._id;
-// 		// console.log(firstloc.username);
-// 	}
-// 	this.paneLocation = new ReactiveVar(firstlocid);
-// 	Session.set("locationSet", true);
-// });
 
 Template.boxes.helpers({
 	spacesToDisplay: function () {
@@ -67,29 +39,6 @@ Template.boxes.helpers({
 		return activities.find({$and: [{locationID: thisID}, {Status: "in"}]}).fetch();
 	}
 });
-
-// Template.eachBox.helpers({
-	
-
-// 	otherLocations: function () {
-// 		users = Meteor.users.find({_id: {$ne: Meteor.userId()}});
-// 		// numb = users.count();
-// 		return users;
-// 	},
-
-	
-// });
-
-// Template.eachBox.events({
-// 	"change .locationSelector": function (event) {
-// 		event.preventDefault();
-// 		// a = event;
-// 		Template.instance().paneLocation = event.currentTarget.location.value;
-// 		// Template.instance().paneLocation2 = event.currentTarget.location2.value;
-// 		// console.log("in change form thing " + Template.instance().paneLocation);
-// 		Session.set("locationSet", true);
-// 	}
-// });
 
 Template.activityEntry.helpers({
 	name() {
@@ -150,8 +99,28 @@ Template.activityEntry.helpers({
 	interests: function() {
 		// console.log(interests.find({$and: [{"space": Meteor.userId()}]}));
 		return interests.find({$and: [{"space": Meteor.userId()}]});
-	}
+	},
+
+	userInterests: function() {
+		// console.log(interests.find({$and: [{"space": Meteor.userId()}]}));
+		console.log(members.findOne({"MemberID": Session.get("Member")}).Interests);
+		return members.findOne({"MemberID": Session.get("Member")}).Interests;
+	},
 });
+
+Template.interestPeople.helpers({
+	peopleOfInterest: function () {
+		// console.log(interests.findOne({"interest": String(this)}).peopleInterest);
+		return interests.findOne({"interest": String(this)}).peopleInterest;
+	}
+})
+
+Template.interestTimes.helpers({
+	timesOfInterest: function () {
+		// console.log(interests.findOne({"interest": String(this)}).peopleInterest);
+		return interests.findOne({"interest": String(this)}).visitTimes;
+	}
+})
 
 Template.memberCheck.onCreated(function () {
 	memid = Session.get("Member");
@@ -172,8 +141,9 @@ Template.memberCheck.onCreated(function () {
 Template.memberEnter.events({
 	'submit .usernameForm': function(event) {
 		event.preventDefault();
-		console.log("username " + event.target.username.value);
-		Router.go('/member/' + event.target.username.value);
+		// console.log("username " + event.target.username.value);
+		uname = event.target.username.value.trim();
+		Router.go('/member/' + uname);
 		//// *** TODO: reinstate log activity here *** ////
 		// Meteor.call("logActivity",
 		// 	Session.get("Member"), 
@@ -214,6 +184,7 @@ Template.activityEntry.events({
 				Router.go('/');
 			}
 			else {
+				alert("Activity Logged!");
 				Router.go('/');
 			}
 		});
@@ -294,7 +265,7 @@ Template.signUp.helpers({
 	lastname: function () {
 		name = Session.get("Member");
 		name = name.trim();
-		Session.set("Member", name);
+		// Session.set("Member", name);
 		names = name.split(" ");
 		console.log(names)
 		if (names.length == 1){
@@ -320,25 +291,26 @@ Template.signUp.events({
 	,
 	'submit .signup': function(event) {
 		event.preventDefault();
+		console.log("signedup");
 		allSkills = interests.find({$and: [{"space": Meteor.userId()}]}, {"interest": 1});
 		function getInterest (x) {
 			return x["interest"]
 		}
 		skillList = allSkills.map(function (x) { return (x["interest"]);} )
-		console.log(event.target[skillList[0] + "-skill"].checked);
-		console.log(event.target[skillList[0] + "-skill"].value);
+		// console.log(event.target[skillList[0] + "-skill"].checked);
+		// console.log(event.target[skillList[0] + "-skill"].value);
 		skillsChecked = [];
 		interestsChecked = [];
 		for (s in skillList) {
-			if (event.target[skillList[s] + "-skill"].checked){
-				skillsChecked.push(skillList[s]);
-			}
+			// if (event.target[skillList[s] + "-skill"].checked){
+			// 	skillsChecked.push(skillList[s]);
+			// }
 			if (event.target[skillList[s] + "-interest"].checked){
 				interestsChecked.push(skillList[s]);
 			}
 		}
-		console.log(skillsChecked);
-		console.log(interests);
+		// console.log(skillsChecked);
+		// console.log(interests);
 		uname = event.target.firstname.value.toLowerCase() + event.target.lastname.value.toLowerCase();
 		Session.set("Username", uname)
 		Meteor.call("createMember", 

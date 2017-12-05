@@ -117,27 +117,83 @@ Meteor.startup(() => {
             bodgeryInterests = [
                 {
                     "space": 0,
-                    "interest": "Woodworking",
-                    "contactPerson": "Karen",
-                    "visitTimes": ["Mondays, 3-5pm"]
-                },
-                {
-                    "space": 0,
-                    "interest": "Machining",
-                    "contactPerson": "Karen",
-                    "visitTimes": ["Mondays, 3-5pm"]
-                },
-                {
-                    "space": 0,
-                    "interest": "Crafts",
-                    "contactPerson": "Karen",
-                    "visitTimes": ["Mondays, 3-5pm"]
+                    "interest": "3D Printing",
+                    "contactPerson": "Karen W.",
+                    "visitTimesText": "Mondays 3-5pm",
+                    "peopleInterest": [{"name": "Karen W."}],
+                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "subInterests": "",
+                    "subInterestArray": []
                 },
                 {
                     "space": 0,
                     "interest": "Electronics",
-                    "contactPerson": "Karen",
-                    "visitTimes": ["Mondays, 3-5pm"]
+                    "contactPerson": "Karen W.",
+                    "visitTimesText": "Mondays 3-5pm",
+                    "peopleInterest": [{"name": "Karen W."}],
+                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "subInterests": "Soldering, Microcontrollers, RPi, Arduino",
+                    "subInterestArray": ["Soldering", "Microcontrollers", "RPi", "Arduino"]
+                },
+                {
+                    "space": 0,
+                    "interest": "Crafting",
+                    "contactPerson": "Karen W.",
+                    "visitTimesText": "Mondays 3-5pm",
+                    "peopleInterest": [{"name": "Karen W."}],
+                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "subInterests": "Fiber, Paper, Jewelery, Vinyl, Costuming",
+                    "subInterestArray": ["Fiber", "Paper", "Jewelery", "Vinyl", "Costuming"]
+                },
+                {
+                    "space": 0,
+                    "interest": "CNC",
+                    "contactPerson": "Karen W.",
+                    "visitTimesText": "Mondays 3-5pm",
+                    "peopleInterest": [{"name": "Karen W."}],
+                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "subInterests": "Laser cutting, Carvey, Milling",
+                    "subInterestArray": ["Laser cutting", "Carvey", "Milling"]
+                },
+                {
+                    "space": 0,
+                    "interest": "Metal Shop",
+                    "contactPerson": "Karen W.",
+                    "visitTimesText": "Mondays 3-5pm",
+                    "peopleInterest": [{"name": "Karen W."}],
+                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "subInterests": "Welding, Blacksmithing",
+                    "subInterestArray": ["Welding", "Blacksmithing"]
+                },
+                {
+                    "space": 0,
+                    "interest": "Vehicles",
+                    "contactPerson": "Karen W.",
+                    "visitTimesText": "Mondays 3-5pm",
+                    "peopleInterest": [{"name": "Karen W."}],
+                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "subInterests": "Power racing, Auto, Drones",
+                    "subInterestArray": ["Power racing", "Auto", "Drones"]
+                },
+                {
+                    "space": 0,
+                    "interest": "Programming",
+                    "contactPerson": "Karen W.",
+                    "visitTimesText": "Mondays 3-5pm",
+                    "peopleInterest": [{"name": "Karen W."}],
+                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "subInterests": "",
+                    "subInterestArray": []
+                },
+                {
+                    "space": 0,
+                    "interest": "Wood Shop",
+                    "contactPerson": "Karen W.",
+                    "visitTimesText": "Mondays 3-5pm",
+                    "peopleInterest": [{"name": "Karen W."}],
+                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "subInterests": "Furniture",
+                    "subInterestArray": ["Furniture"]
                 },
             ]
             for (i in bodgeryInterests) {
