@@ -1,0 +1,27 @@
+{
+  "name": "connected-spaces",
+  "version": "0.0.2",
+  "description": "Connecting Peers Across Makerspaces",
+  "main": "index.js",
+  "dependencies": {
+    "appearin-sdk": "0.0.4",
+    "babel-runtime": "^6.23.0",
+    "bcrypt": "^0.8.7",
+    "fibers": "^1.0.15",
+    "phantomjs": "^2.1.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Visheshk/connectedspaces.git"
+  },
+  "author": "Mike, Vishesh, Matthew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Visheshk/connectedspaces/issues"
+  },
+  "homepage": "https://github.com/Visheshk/connectedspaces#readme"
+}
