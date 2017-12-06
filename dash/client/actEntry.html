@@ -93,7 +93,7 @@
 
 <template name="interestTimes">
   {{#each timesOfInterest}}
-    <p class="list-group-item-text"> {{day}}: {{time}} </p>
+    <p class="list-group-item-text"> {{day}} {{time}} </p>
   {{/each}}
 </template>
 
@@ -151,7 +151,7 @@
               </ul>
             </div>
             <div class="col-md-6">
-              <h3> Times to visit </h3>
+              <h3> Popular Times by Topic </h3>
                 <ul class="list-group">
                   
                     {{#each userInterests}}

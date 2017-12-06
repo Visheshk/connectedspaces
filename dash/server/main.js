@@ -1,29 +1,6 @@
-// import { Meteor } from 'meteor/meteor';
-// import { Mongo } from 'meteor/mongo';
-
-
-// console.log("mongodb://" + mongo_user + ":" + mongo_pass + "@" +  mongo_ip + ":27017/cspace");
-// db = new MongoInternals.RemoteCollectionDriver("mongodb://" + mongo_user + ":" + mongo_pass + "@" +  mongo_ip + ":27017/cspace");
-// export const members = new Mongo.Collection("members", {_driver: db});
-// export const activities = new Mongo.Collection("activities", {_driver: db});
-
 date = new Date();
 
 Meteor.startup(() => {
-
-    // SSLProxy({
-    //    port: 6000, //or 443 (normal port/requires sudo)
-    //    ssl : {
-    //         key: Assets.getText("server.key"),
-    //         cert: Assets.getText("server.crt"),
-    //         //Optional CA
-    //         //Assets.getText("ca.pem")
-    //    }
-    // });
-
-	// console.log(rests.findOne({}));
-	// console.log(members.findOne({}));
-    // code to run on server at startup
     Meteor.publish('userPresence', function() {
       // Setup some filter to find the users your user
       // cares about. It's unlikely that you want to publish the 
@@ -54,6 +31,13 @@ Meteor.startup(() => {
                 "CreatedAt": date.getTime()
             });
             return name;
+        },
+
+        logInteraction: function(info) {
+            interactions.insert({
+                "Time": date.getTime(),
+                "Data": info
+            });
         },
 
         logActivity: function(memId, name, activity, locationID, location) {
@@ -120,8 +104,26 @@ Meteor.startup(() => {
                     "interest": "3D Printing",
                     "contactPerson": "Karen W.",
                     "visitTimesText": "Mondays 3-5pm",
-                    "peopleInterest": [{"name": "Karen W."}],
-                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "peopleInterest": [
+                        {"name": "Alex K."},
+                        {"name": "Clint C."},
+                        {"name": "Grant D."},
+                        {"name": "John T."},
+                        {"name": "Ken B."},
+                        {"name": "Kevin T."},
+                        {"name": "Matthew M."},
+                        {"name": "Michael C."},
+                        {"name": "Peter L."},
+                        {"name": "Sam M."},
+                        {"name": "Sean G."},
+                        {"name": "Timm M."},
+                        {"name": "Tom H."}
+                    ],
+                    "visitTimes": [
+                        {"day": "Friday: ", "time": "Most Likely"},
+                        {"day": "Monday: ", "time": "Second most likely"},
+                        {"day": "Saturday: ", "time": "Third most likely"},
+                    ],
                     "subInterests": "",
                     "subInterestArray": []
                 },
@@ -130,8 +132,36 @@ Meteor.startup(() => {
                     "interest": "Electronics",
                     "contactPerson": "Karen W.",
                     "visitTimesText": "Mondays 3-5pm",
-                    "peopleInterest": [{"name": "Karen W."}],
-                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "peopleInterest": [
+                        {"name": "Alex K"},
+                        {"name": "Cole H"},
+                        {"name": "David B"},
+                        {"name": "James P"},
+                        {"name": "Jason N"},
+                        {"name": "John E"},
+                        {"name": "John T"},
+                        {"name": "Jonah B"},
+                        {"name": "Josef H"},
+                        {"name": "Justin D"},
+                        {"name": "Kevin T"},
+                        {"name": "Lorenzo L"},
+                        {"name": "Marshall S"},
+                        {"name": "Matthew F"},
+                        {"name": "Matthew M"},
+                        {"name": "Parker S"},
+                        {"name": "Sam M"},
+                        {"name": "Sarah C"},
+                        {"name": "Sean G"},
+                        {"name": "Timm M"},
+                        {"name": "Tom H"},
+                        {"name": "Weston W"},
+                        {"name": "Will M"}                    
+                    ],
+                    "visitTimes": [
+                        {"day": "Friday: ", "time": "Most Likely"},
+                        {"day": "Monday: ", "time": "Second most likely"},
+                        {"day": "Saturday: ", "time": "Third most likely"},
+                    ],
                     "subInterests": "Soldering, Microcontrollers, RPi, Arduino",
                     "subInterestArray": ["Soldering", "Microcontrollers", "RPi", "Arduino"]
                 },
@@ -140,8 +170,38 @@ Meteor.startup(() => {
                     "interest": "Crafting",
                     "contactPerson": "Karen W.",
                     "visitTimesText": "Mondays 3-5pm",
-                    "peopleInterest": [{"name": "Karen W."}],
-                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "peopleInterest": [
+                        {"name": "Alex K"},
+                        {"name": "Andrea C"},
+                        {"name": "Anhthu H"},
+                        {"name": "Brad S"},
+                        {"name": "Cassie B"},
+                        {"name": "Cody J"},
+                        {"name": "Dawn C"},
+                        {"name": "Evan U"},
+                        {"name": "Hilllary B"},
+                        {"name": "Iris N"},
+                        {"name": "James V"},
+                        {"name": "Jolyn S"},
+                        {"name": "Karen C"},
+                        {"name": "Liz A"},
+                        {"name": "Luke B"},
+                        {"name": "Myranda H"},
+                        {"name": "Owen L"},
+                        {"name": "Robert S"},
+                        {"name": "Sam M"},
+                        {"name": "Sarah C"},
+                        {"name": "Sean G"},
+                        {"name": "Susan S"},
+                        {"name": "Sylvia L"},
+                        {"name": "Theo H"},
+                        {"name": "Zachery G"}
+                    ],
+                    "visitTimes": [
+                        {"day": "Monday: ", "time": "Most Likely"},
+                        {"day": "Saturday: ", "time": "Second most likely"},
+                        {"day": "Friday: ", "time": "Third most likely"},
+                    ],
                     "subInterests": "Fiber, Paper, Jewelery, Vinyl, Costuming",
                     "subInterestArray": ["Fiber", "Paper", "Jewelery", "Vinyl", "Costuming"]
                 },
@@ -150,8 +210,25 @@ Meteor.startup(() => {
                     "interest": "CNC",
                     "contactPerson": "Karen W.",
                     "visitTimesText": "Mondays 3-5pm",
-                    "peopleInterest": [{"name": "Karen W."}],
-                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "peopleInterest": [
+                        {"name": "Alex K"},
+                        {"name": "Bryant S"},
+                        {"name": "Eric H"},
+                        {"name": "John E"},
+                        {"name": "Josh L"},
+                        {"name": "Justin D"},
+                        {"name": "Karen C"},
+                        {"name": "Liz A"},
+                        {"name": "Michael C"},
+                        {"name": "Natsuko S"},
+                        {"name": "Sam M"},
+                        {"name": "Sean G"}
+                    ],
+                    "visitTimes": [
+                        {"day": "Friday: ", "time": "Most Likely"},
+                        {"day": "Monday: ", "time": "Second most likely"},
+                        {"day": "Saturday: ", "time": "Third most likely"},
+                    ],
                     "subInterests": "Laser cutting, Carvey, Milling",
                     "subInterestArray": ["Laser cutting", "Carvey", "Milling"]
                 },
@@ -160,8 +237,31 @@ Meteor.startup(() => {
                     "interest": "Metal Shop",
                     "contactPerson": "Karen W.",
                     "visitTimesText": "Mondays 3-5pm",
-                    "peopleInterest": [{"name": "Karen W."}],
-                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "peopleInterest": [
+                        {"name": "Alex K"},
+                        {"name": "Brad S"},
+                        {"name": "Bryant S"},
+                        {"name": "Cole H"},
+                        {"name": "Dave B"},
+                        {"name": "James V"},
+                        {"name": "John E"},
+                        {"name": "Josef H"},
+                        {"name": "Josh L"},
+                        {"name": "Ka L"},
+                        {"name": "Karen C"},
+                        {"name": "Randy N"},
+                        {"name": "Roger S"},
+                        {"name": "Ryan D"},
+                        {"name": "Sam M"},
+                        {"name": "Sean G"},
+                        {"name": "Weston W"},
+                        {"name": "Zachary W"}
+                    ],
+                    "visitTimes": [
+                        {"day": "Friday: ", "time": "Most Likely"},
+                        {"day": "Monday: ", "time": "Second most likely"},
+                        {"day": "Saturday, Tuesday, and Wednesday: ", "time": "Third most likely"},
+                    ],
                     "subInterests": "Welding, Blacksmithing",
                     "subInterestArray": ["Welding", "Blacksmithing"]
                 },
@@ -170,8 +270,18 @@ Meteor.startup(() => {
                     "interest": "Vehicles",
                     "contactPerson": "Karen W.",
                     "visitTimesText": "Mondays 3-5pm",
-                    "peopleInterest": [{"name": "Karen W."}],
-                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "peopleInterest": [
+                        {"name": "Adam J"},
+                        {"name": "Alex K"},
+                        {"name": "Grant D"},
+                        {"name": "Sam M"},
+                        {"name": "Sean G"}
+                    ],
+                    "visitTimes": [
+                        {"day": "Monday, Friday: ", "time": "Most Likely"},
+                        {"day": "Tuesday, Wednesday, Saturday, Sunday: ", "time": "Second most likely"},
+                        // {"day": "Saturday: ", "time": "Third most likely"},
+                    ],
                     "subInterests": "Power racing, Auto, Drones",
                     "subInterestArray": ["Power racing", "Auto", "Drones"]
                 },
@@ -180,8 +290,28 @@ Meteor.startup(() => {
                     "interest": "Programming",
                     "contactPerson": "Karen W.",
                     "visitTimesText": "Mondays 3-5pm",
-                    "peopleInterest": [{"name": "Karen W."}],
-                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "peopleInterest": [
+                        {"name": "Alex K"},
+                        {"name": "Grant D"},
+                        {"name": "James P"},
+                        {"name": "Jason N"},
+                        {"name": "John E"},
+                        {"name": "Jonah B"},
+                        {"name": "Marshall S"},
+                        {"name": "Matthew F"},
+                        {"name": "Parker S"},
+                        {"name": "Robert S"},
+                        {"name": "Sam M"},
+                        {"name": "Sean G"},
+                        {"name": "Sean K"},
+                        {"name": "Theo H"},
+                        {"name": "Timm M"}
+                    ],
+                    "visitTimes": [
+                        {"day": "Monday: ", "time": "Most Likely"},
+                        {"day": "Friday: ", "time": "Second most likely"},
+                        {"day": "All the other days: ", "time": "Third most likely"},
+                    ],
                     "subInterests": "",
                     "subInterestArray": []
                 },
@@ -190,8 +320,65 @@ Meteor.startup(() => {
                     "interest": "Wood Shop",
                     "contactPerson": "Karen W.",
                     "visitTimesText": "Mondays 3-5pm",
-                    "peopleInterest": [{"name": "Karen W."}],
-                    "visitTimes": [{"day": "Mondays", "time": "3-5pm"}],
+                    "peopleInterest": [
+                        {"name": "Aaron H"},
+                        {"name": "Alex K"},
+                        {"name": "Alex C"},
+                        {"name": "Alexander A"},
+                        {"name": "Andrea C"},
+                        {"name": "Andrew C"},
+                        {"name": "Anhthu H"},
+                        {"name": "Brad S"},
+                        {"name": "Bryant S"},
+                        {"name": "Cal F"},
+                        {"name": "Clint C"},
+                        {"name": "Cole H"},
+                        {"name": "Dan H"},
+                        {"name": "Dave B"},
+                        {"name": "Gaelan T"},
+                        {"name": "Glenn T"},
+                        {"name": "Herthel S"},
+                        {"name": "James V"},
+                        {"name": "Jason N"},
+                        {"name": "Jim F"},
+                        {"name": "Jim W"},
+                        {"name": "John E"},
+                        {"name": "John T"},
+                        {"name": "Jon A"},
+                        {"name": "Jonah B"},
+                        {"name": "Josef H"},
+                        {"name": "Julian C"},
+                        {"name": "Justin D"},
+                        {"name": "Ka L"},
+                        {"name": "Karen C"},
+                        {"name": "Katie D"},
+                        {"name": "Kevin T"},
+                        {"name": "Kurt H"},
+                        {"name": "Lacey P"},
+                        {"name": "Lisa S"},
+                        {"name": "Liz A"},
+                        {"name": "Lucy G"},
+                        {"name": "Marshall S"},
+                        {"name": "Matthew M"},
+                        {"name": "Matthew M"},
+                        {"name": "Michael B"},
+                        {"name": "Myranda H"},
+                        {"name": "Natsuko S"},
+                        {"name": "Parker S"},
+                        {"name": "Randy N"},
+                        {"name": "Roger S"},
+                        {"name": "Sam M"},
+                        {"name": "Sean G"},
+                        {"name": "Tyler G"},
+                        {"name": "Weston W"},
+                        {"name": "Will M"},
+                        {"name": "Zachary W"}
+                    ],
+                    "visitTimes": [
+                        {"day": "Friday: ", "time": "Most Likely"},
+                        {"day": "Wednesday, Saturday: ", "time": "Second most likely"},
+                        // {"day": "Saturday: ", "time": "Third most likely"},
+                    ],
                     "subInterests": "Furniture",
                     "subInterestArray": ["Furniture"]
                 },

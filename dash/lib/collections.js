@@ -12,3 +12,5 @@ displaySpaces = new Mongo.Collection("displaySpaces");
 
 // presences = new Mongo.Collection("presences");
 interests = new Mongo.Collection("interests");
+
+interactions = new Mongo.Collection("interactions");

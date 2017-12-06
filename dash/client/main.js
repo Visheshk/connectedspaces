@@ -117,7 +117,19 @@ Template.activityEntry.helpers({
 Template.interestPeople.helpers({
 	peopleOfInterest: function () {
 		// console.log(interests.findOne({"interest": String(this)}).peopleInterest);
-		return interests.findOne({"interest": String(this)}).peopleInterest;
+		peepArray = interests.findOne({"interest": String(this)}).peopleInterest
+		function getRandomSubarray(arr, size) {
+		    var shuffled = arr.slice(0), i = arr.length, temp, index;
+		    while (i--) {
+		        index = Math.floor((i + 1) * Math.random());
+		        temp = shuffled[index];
+		        shuffled[index] = shuffled[i];
+		        shuffled[i] = temp;
+		    }
+		    return shuffled.slice(0, size);
+		}
+
+		return getRandomSubarray(peepArray, 2);
 	}
 })
 
@@ -149,6 +161,11 @@ Template.memberEnter.events({
 		event.preventDefault();
 		// console.log("username " + event.target.username.value);
 		uname = event.target.username.value.trim();
+		info = {
+			"MemberID": uname,
+			"Button": "Log in",
+		}
+		Meteor.call("recordInteraction", info);
 		Router.go('/member/' + uname);
 		//// *** TODO: reinstate log activity here *** ////
 		// Meteor.call("logActivity",
@@ -171,9 +188,15 @@ Template.memberEnter.events({
 
 Template.activityEntry.events({
 	'click .reset-form': function (event){
+		info = {
+			"MemberID": Session.get("Member"),
+			"Button": "If you want to re-enter your name ... ",
+		}
+		Meteor.call("recordInteraction", info);
 		Session.set("Member", undefined);
 		Session.set("Name", undefined);
 		Router.go("/");
+
 	},
 
  	'submit .activityForm': function(event) {
@@ -209,7 +232,7 @@ Template.activityEntry.events({
 				Router.go('/');
 			}
 			else {
-				alert("Activity Logged!");
+				alert("Visit Logged!");
 				Router.go('/');
 			}
 		});
@@ -261,6 +284,12 @@ Template.activityEntry.events({
 				Router.go('/');
 			}
 		});
+		info = {
+			"MemberID": Session.get("Member"),
+			"Button": "Cancel Login"
+		}
+		Meteor.call("recordInteraction", info);
+
 	}
 });
 
@@ -294,8 +323,13 @@ Template.signUp.events({
 	'click .reset-form': function (event) {
 		Session.set("Member", 0);
 		Router.go("/");
-	}
-	,
+		info = {
+			"MemberID": Session.get("Member"),
+			"Button": "Not you? Click to enter name again"
+		}
+		Meteor.call("recordInteraction", info);
+	},
+
 	'submit .signup': function(event) {
 		event.preventDefault();
 		console.log("signedup");
@@ -320,6 +354,12 @@ Template.signUp.events({
 		// console.log(interests);
 		uname = event.target.firstname.value.toLowerCase() + event.target.lastname.value.toLowerCase();
 		Session.set("Username", uname)
+		info = {
+			"MemberID": Session.get("Member"),
+			"Button": "Sign Up"
+		}
+		Meteor.call("recordInteraction", info);
+
 		Meteor.call("createMember", 
 			Session.get("Member"), 
 			uname,
@@ -333,11 +373,23 @@ Template.signUp.events({
 			function (err, res) {
 			if (err) {
 				alert("sign up failed at server end! :(");
+				info = {
+					"MemberID": Session.get("Member"),
+					"Button": "Not you? Click to enter name again",
+					"Event": "Sign up failed at server end"
+				}
+				Meteor.call("recordInteraction", info);
 			}
 			else {
 				console.log(res)
 				Session.set("Name", res);
 				Router.go('/actitout');
+				info = {
+					"MemberID": Session.get("Member"),
+					"Button": "Not you? Click to enter name again",
+					"Event": "Sign up successful"
+				}
+				Meteor.call("recordInteraction", info);
 			}
 		});
 	}
