@@ -33,7 +33,7 @@ Meteor.startup(() => {
             return name;
         },
 
-        logInteraction: function(info) {
+        recordInteraction: function(info) {
             interactions.insert({
                 "Time": date.getTime(),
                 "Data": info
@@ -394,9 +394,9 @@ Meteor.startup(() => {
         }
     });
 
-    Meteor.setInterval(function () {
-        Meteor.call('checkLogins');
-    }, 300000);
+    // Meteor.setInterval(function () {
+    //     Meteor.call('checkLogins');
+    // }, 300000);
     // }, 1000);
 });
 
