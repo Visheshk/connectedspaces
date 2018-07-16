@@ -1,3 +1,157 @@
+TODOS:
+
+add readable timestamps along with epochs
+in helprequests log, add timestamp of when help was resolved
+
+
+
+
+
+May 14-17
+
+/// play an alert and blink 4 times for new help notifications
+~~ Contrasty color, make it more glaring
+~~ Make it blink, and hopefully make a sound
+/// make it maybe 2x or 3x bigger
+/// add teacher to list
+~~~ make list radio buttons
+
+
+
+
+//make the notification for help an alert box floating in the bottom
+  //hover over the other things z = -1
+
+//legend at the bottom – floating div
+
+
+General
+
+Export commands and example data
+
+export PORT=3000
+export MONGO_URL=mongodb://localhost:27017/leadcaravan ROOT_URL=http://caravan.complexplay.org 
+
+
+
+mongoexport
+mongoexport -h localhost:8012 --db meteor --collection eventlogs --out events.json
+
+
+Example data
+{ 
+  "_id" : "ZbngzQEgaSDgcfpJa", 
+  "createdAt" : ISODate("2016-06-18T00:49:24.892Z"), 
+  "services" : { 
+    "password" : { 
+      "bcrypt" : "$2a$10$WcretTwzWonJ/d7ysz3/muddYDi.12mXUQkQ8HAaWYcIinfPP8iPm" 
+    }, 
+    "resume" : { 
+      "loginTokens" : [ 
+        { 
+          "when" : ISODate("2016-06-18T00:49:24.988Z"), 
+          "hashedToken" : "X22/Cz7ZTnd0x6chngZHyGeU/3pMbNWQmJezYuqCf8c=" 
+        } 
+      ] 
+    } 
+  }, 
+  "username" : "room150", 
+  "emails" : [ 
+    { 
+      "address" : "a@a.com", 
+      "verified" : false 
+    } 
+  ], 
+  "profile" : { 
+    "name" : "Room 150" 
+  } 
+}
+
+
+
+
+
+
+
+52.10.31.209
+////52.41.24.224
+
+db.createUser(
+  {
+    user: "myUserAdmin",
+    pwd: "ordeal-longhand-woo-cute-hostelry",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+
+
+db.createUser(
+  {
+    user: "flaskWriter",
+    pwd: "bleach-volition-kolinsky-revved-pouch",
+    roles: [ { role: "readWrite", db: "cspace" } ]
+  }
+)
+
+db.createUser(
+  {
+    user: "meteorReader",
+    pwd: "bottle-plot-grange-cochlea",
+    roles: [ { role: "read", db: "cspace" } ]
+  }
+)
+
+
+
+export MONGO_URL=mongodb://meteorReader:bottle-plot-grange-cochlea@52.41.24.224:27017/cspace
+export MONGO_URL=mongodb://flaskWriter:bleach-volition-kolinsky-revved-pouch@52.41.24.224:27017/cspace
+
+MemberID: 7A00928E3D5B
+
+
+
+> db.activities.find()
+  { "_id" : ObjectId("57607bb912346041a982bf7f"), 
+  "loggedIn" : ISODate("2016-06-14T21:48:40.938Z"), 
+  "name" : "Batman", 
+  "currentActivity" : "Javascript", 
+  "MemberID" : "7A00928E3D5B", 
+  "location" : "Room 150" }
+
+> db.members.find()
+  { "_id" : ObjectId("57607bac12346041a982bf7e"), 
+  "name" : "Batman", 
+  "created_at" : ISODate("2016-06-14T21:48:28.779Z"), 
+  "currentActivity" : null, 
+  "MemberID" : "7A00928E3D5B", 
+  "ZipCode" : "0420" }
+
+
+  Users:
+ { "_id" : "LMpHfwtp2a5sJKiJ4", "createdAt" : ISODate("2016-10-02T04:38:01.658Z"), "services" : { "password" : { "bcrypt" : "$2a$10$ou1tyANAbAig.Zjl1/j4fusy8Nc3Jict550sCF12MV8j7u/Yx3tFC" }, "resume" : { "loginTokens" : [ { "when" : ISODate("2016-10-02T04:38:01.788Z"), "hashedToken" : "Y2Yo4ECsjJVvNWNklUw73m6AWLe5qoQh09mYsd6FMH4=" }, { "when" : ISODate("2016-10-20T04:50:01.302Z"), "hashedToken" : "P35o5Gsr0flrE2/ccYapzWqxaRLMaoGIeFlRZM5eRY8=" }, { "when" : ISODate("2016-11-20T23:49:20.275Z"), "hashedToken" : "zEg6CZk0psp3EqlrM+HSYL4vHAxlAXHNkoKeWr+C5n4=" } ] } }, "username" : "room1", "emails" : [ { "address" : "a@a.com", "verified" : false } ], "profile" : { "name" : "room1" } }
+
+{ "_id" : "hB7kuaGzY2oHK8YdS", "createdAt" : ISODate("2016-10-02T04:43:43.773Z"), "services" : { "password" : { "bcrypt" : "$2a$10$gigeZsihwrgiAz7iHLqpfudbB/45IB7mReU8UQIzy9xjgYaQd6s8G" }, "resume" : { "loginTokens" : [ { "when" : ISODate("2016-10-02T04:43:43.883Z"), "hashedToken" : "OIln7r63MbFZbVKCTw7coTVhDbf2zHrpT0o2zIGYdFs=" }, { "when" : ISODate("2016-10-02T08:33:04.059Z"), "hashedToken" : "JOZY/1MX2oTK0KcEwoZ2q/dwwdyNilkihijKFNWDZlM=" }, { "when" : ISODate("2016-10-02T08:35:49.874Z"), "hashedToken" : "zYEslKoxlm8DtlHKs6RfDYeZozcRf/LMX3fU3IOdDnk=" }, { "when" : ISODate("2016-10-02T23:11:13.918Z"), "hashedToken" : "3+QimgE1DGbfbBq17BHb+uzDevytaLPCr3/LT7mcGfQ=" }, { "when" : ISODate("2016-10-03T00:16:32.360Z"), "hashedToken" : "WgltEsOVu+mksGR3PM4Sp0LQfUcqlyvU8MYz++keUwk=" }, { "when" : ISODate("2016-10-08T21:22:03.048Z"), "hashedToken" : "adUWoADesFTs1abNrhwqX2S4jE1SFZLCa+1erG5KVG8=" }, { "when" : ISODate("2016-10-09T00:46:07.222Z"), "hashedToken" : "ZTi2kuCofYD6Vzfo4HTlvL6pxGZnqUSZNbNfpnW5C/k=" }, { "when" : ISODate("2016-10-09T00:52:57.024Z"), "hashedToken" : "uTuXzkXC30A48om522EonC5s/ZtSXBP77smYdo4S3Ec=" }, { "when" : ISODate("2016-10-09T01:13:36.899Z"), "hashedToken" : "e84kYW5h1k5X9DsXy+TBQN/guwPj6UVntbZOe7FKmFU=" }, { "when" : ISODate("2016-10-09T01:51:47.926Z"), "hashedToken" : "yXdAJ45L4FBnCxlMOFjH7xWQzE3pIFgdr9CMRhqD0aU=" }, { "when" : ISODate("2016-10-09T14:31:21.976Z"), "hashedToken" : "M6SeZX6JN4E/bOKEZzLxzA+qrWTL1/0nsEHIJoSeinA=" }, { "when" : ISODate("2016-10-09T18:11:43.529Z"), "hashedToken" : "runaw6w/SQHUenCS90UltmXj1p4qLywWmWcae18zgpg=" }, { "when" : ISODate("2016-10-10T18:27:13.614Z"), "hashedToken" : "IT/2rkV3V191KROWGYr4TIo0kDBHi6MqCZlnv1H74VM=" }, { "when" : ISODate("2016-10-16T06:43:43.261Z"), "hashedToken" : "ex77Ngm2UcXvFNCmZKfUwhxCJgnF7dYlkX/zZZSaWwA=" }, { "when" : ISODate("2016-10-16T16:35:21.733Z"), "hashedToken" : "E/AgDL5DS7i1twwWA2QR7RHwIAqY3eulGHw8vbRoAGY=" }, { "when" : ISODate("2016-10-16T18:58:13.644Z"), "hashedToken" : "oU1E2U0KV9rWo+B1TnW+y2sLPFM/ILC4XGDSPewLLIY=" } ] } }, "username" : "room2", "emails" : [ { "address" : "b@b.com", "verified" : false } ], "profile" : { "name" : "room2" } }
+
+{ "_id" : "ceJEE7rec83sep5Cv", "createdAt" : ISODate("2016-10-09T00:51:39.822Z"), "services" : { "password" : { "bcrypt" : "$2a$10$HavJIUIS9FQRsJsoBcxRqeQ0QecICOaZQJQvt72ICS.Rqgnbx.63y" }, "resume" : { "loginTokens" : [ { "when" : ISODate("2016-10-09T00:51:39.938Z"), "hashedToken" : "UuPbIEiyBMd4DIbrYGsMsJYe6njk5mOoqyTL4mZrdP0=" }, { "when" : ISODate("2016-10-09T00:51:59.063Z"), "hashedToken" : "l9UJZN9Vnwnb4xy1hW4Hf+PUjHs+54mTX29vME/hPAY=" }, { "when" : ISODate("2016-10-09T01:11:56.968Z"), "hashedToken" : "pIHZCogn/NIXEb9VUXQ4QOseytpIkCp+iNcM8v+KXro=" }, { "when" : ISODate("2016-10-16T17:10:23.897Z"), "hashedToken" : "Sz2DDQs9AHPMMDc4FN57Aay2uH3HRkQBCG1WJrMlR2U=" }, { "when" : ISODate("2016-10-16T17:11:32.936Z"), "hashedToken" : "lDiwo75+ZlV/VtwtfPpDiO4i3qiRJXMchENQ8aJlo8A=" }, { "when" : ISODate("2016-10-16T17:38:54.244Z"), "hashedToken" : "K05lsLVw7wuAfuICUZB+JExh0fiB/irWi0IrwTIdkcg=" }, { "when" : ISODate("2016-10-16T18:20:22.944Z"), "hashedToken" : "JTQcwEuoX7ouEcBL47vk1tJC4jOuzSJSJ5KPz+M+WUM=" } ] } }, "username" : "room3", "emails" : [ { "address" : "r3@r.com", "verified" : false } ], "profile" : { "name" : "room3" } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 TODOS
 /// 1. make the video space disappear when not in call
 /// 2. keyboard shortcuts to select options in the select box, or just set the corresponding variable 

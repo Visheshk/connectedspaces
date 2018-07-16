@@ -1,0 +1,77 @@
+>>>>>>>  Misc stuff
+
+
+>>>>>>>> Mongo export scripts
+mongoexport --db meteor --collection eventLogs --out may14-eventLogs.json
+
+mongoexport --db local --collection eventLogs --out may30-eventLogs.json
+mongoexport --db local --collection smallGroups --out may30-smallGroups.json
+mongoexport --db local --collection affinities --out may30-affinities.json
+mongoexport --db local --collection helpRequests --out may30-helpRequests.json
+
+
+>>>>>> sample logs
+
+{ "_id" : "9NXdjLquts7u3FroJ", "room" : "zFQXmSAG96ZWGouTA", "team" : "T1", "student" : "V", "affinities" : [ { "affinityName" : "bops" }, { "affinityName" : "pops" }, { "affinityName" : "cops" } ], "visibility" : true }
+{ "_id" : "E4c4NRR5gRa94Z8fp", "room" : "zFQXmSAG96ZWGouTA", "team" : "T1", "student" : "M", "affinities" : [ { "affinityName" : "bops" } ], "visibility" : true }
+{ "_id" : "b2tr8qFdyn82rer2e", "room" : "zFQXmSAG96ZWGouTA", "team" : "T1", "student" : "A", "affinities" : [ { "affinityName" : "bops" } ], "visibility" : true }
+{ "_id" : "ZfuTXyggGZvD9szJt", "room" : "zFQXmSAG96ZWGouTA", "team" : "T1", "student" : "B", "affinities" : [ { "affinityName" : "bops" }, { "affinityName" : "pops" } ], "visibility" : true }
+{ "_id" : "6Gqki9KkErrgxxqF4", "room" : "zFQXmSAG96ZWGouTA", "team" : "T2", "student" : "V", "affinities" : [ { "affinityName" : "bops" }, { "affinityName" : "pops" } ], "visibility" : true }
+{ "_id" : "oAT97CWSDFcoWWyjE", "room" : "zFQXmSAG96ZWGouTA", "team" : "T2", "student" : "S", "affinities" : [ { "affinityName" : "pops" }, { "affinityName" : "cops" } ], "visibility" : true }
+{ "_id" : "deNdj8Zj2dA37LuYN", "room" : "zFQXmSAG96ZWGouTA", "team" : "T3", "student" : "S", "affinities" : [ { "affinityName" : "pops" }, { "affinityName" : "cops" } ], "visibility" : true }
+{ "_id" : "gNEELPLabnykersxd", "room" : "zFQXmSAG96ZWGouTA", "team" : "T4", "student" : "S", "affinities" : [ { "affinityName" : "pops" }, { "affinityName" : "cops" } ], "visibility" : true }
+{ "_id" : "qH5gnF9qR8y6GgLfC", "room" : "zFQXmSAG96ZWGouTA", "team" : "T5", "student" : "S", "affinities" : [ { "affinityName" : "pops" }, { "affinityName" : "cops" } ], "visibility" : true }
+
+
+
+> multi column radio buttons
+
+<div class="form-group">
+    <label class="control-label">What is your Department?</label>
+    <div class="row">
+        <div class="col-md-4 left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="rating" value="terrible" /> Terrible
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4 left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="rating" value="terrible" /> Terrible
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4 left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="rating" value="terrible" /> Terrible
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-md-4 left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="rating" value="terrible" /> Terrible
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4 left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="rating" value="terrible" /> Terrible
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4 left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="rating" value="terrible" /> Terrible
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

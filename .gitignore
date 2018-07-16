@@ -1,6 +1,8 @@
 
 logins.py
 
+malden/
+
 *.pyc
 
 *.sublime-workspace
@@ -54,3 +56,5 @@ hardware/*
 poster/*
 
 bodgery-skill-list.txt
+
+dash/misc-secrets.txt
